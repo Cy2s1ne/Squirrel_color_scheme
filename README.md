@@ -14,22 +14,23 @@
 - macOS 下的 Squirrel / Rime（或兼容外观配置的输入法）。
 
 **30 秒上手**
-1. 复制 `squirrel.custom.yaml` 到配置目录：
+1. 复制 `squirrel.custom.yaml` 到配置目录（Squirrel 只读 `~/Library/Rime/`）：
 
 ```bash
 cp squirrel.custom.yaml ~/Library/Rime/
-# 或者
-cp squirrel.custom.yaml ~/Library/Preferences/Squirrel/
 ```
 
-2. 重新部署 / 重启输入法。
+2. 菜单栏「鼠须管」→「重新部署」（或重启输入法）。
 
-提示：如果你已有自定义配置，建议只合并 `style` 与 `preset_color_schemes` 两段。
+> ⚠️ `*.custom.yaml` 是补丁文件，**最外层必须有 `patch:`**。缺少 `patch:` 时 Rime 会静默忽略整个文件，表现就是「部署了但皮肤没变」。部署后可自检：
+> `grep macos_native ~/Library/Rime/build/squirrel.yaml` —— 有输出才算生效。
+
+提示：如果你已有自定义配置，建议只合并 `patch:` 下的 `style/...` 与 `preset_color_schemes/...` 两段。
 
 **启用 / 切换主题**
-在 `style` 中设置：
-- `color_scheme: macos_native_light`
-- `color_scheme_dark: macos_native_dark`
+在 `patch:` 中设置：
+- `"style/color_scheme": macos_native_light`
+- `"style/color_scheme_dark": macos_native_dark`
 
 **配色格式**
 - 颜色使用十六进制 `0xBBGGRR`（BGR 顺序，不是常见的 `0xRRGGBB`）。

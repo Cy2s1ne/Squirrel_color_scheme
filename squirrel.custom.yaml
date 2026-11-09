@@ -1,175 +1,128 @@
-config_version: '2025-10-23'  # config_version: '1.0.3'
-
-
-keyboard_layout: last
-# for veteran chord-typist
-chord_duration: 0.1  # seconds
-# options: always | never | appropriate
-show_notifications_when: appropriate
-
-
-
-app_options:
-  # com.apple.Spotlight:
-  #   ascii_mode: true    # 开启默认英文
-  # com.microsoft.VSCode:
-  #   ascii_mode: false   # 关闭默认英文
-
-
-style:
-  # 选择皮肤，亮色与暗色主题
-  color_scheme: macos_native_light
-  color_scheme_dark: macos_native_dark
+# Squirrel 皮肤 / 配色补丁
+#
+# ⚠️ 重要：*.custom.yaml 是「补丁文件」，Rime 只读取文件里的 patch: 节点。
+#    如果最外层没有 patch:，整个文件会被静默忽略（不会报错，但完全无效）。
+#    可在部署后这样自检：
+#      grep -n "macos_native" ~/Library/Rime/build/squirrel.yaml
+#    有输出才说明补丁真的生效了。
+#
+# 颜色格式：0xBBGGRR（BGR 顺序，不是 0xRRGGBB）
+patch:
+  # ---------------------------------------------------------------
+  # 外观：逐项用 "style/xxx" 覆盖，避免整个 style 节点被替换
+  # ---------------------------------------------------------------
+  "style/color_scheme": macos_native_light
+  "style/color_scheme_dark": macos_native_dark
 
   # 候选框与文字的排列方式
-  candidate_list_layout: linear  # stacked | linear       皮肤横竖排显示是调整这个
-  text_orientation: horizontal    # horizontal | vertical  文字方向
+  "style/candidate_list_layout": linear    # stacked | linear
+  "style/text_orientation": horizontal     # horizontal | vertical
   # 拼音或词句是否显示在键入位置
-  inline_preedit: true     # true | false  键入码显示位置
-  inline_candidate: false  # true | false  选中词显示位置
+  "style/inline_preedit": true             # true | false
+  "style/inline_candidate": false          # true | false
 
-  # Whether candidate panel stick to screen edge to reduce jumping
-  memorize_size: true
-  # Whether transparent colors stack on each other
-  mutual_exclusive: false
-  # Whether to use a translucent background. Only visible when background color is transparent
-  translucency: false
-  # Enable to show small arrows that indicates if paging up/down is possible
-  show_paging: false
+  "style/memorize_size": true
+  "style/mutual_exclusive": false
+  "style/translucency": false
+  "style/show_paging": false
 
-  corner_radius: 7
-  hilited_corner_radius: 0
-  border_height: -2
-  border_width: -2
-  # Space between candidates in stacked layout
-  line_spacing: 5
-  # Space between preedit and candidates in non-inline mode
-  spacing: 8
-  # A number greater than 0 renders shadow around high-lighted candidate
-  shadow_size: 0
-  # Controls non-hililighted candidate background size, relative to highlighted
-  # Nagetive means shrink, positive meas expand
-  #surrounding_extra_expansion: 0
+  "style/corner_radius": 7
+  "style/hilited_corner_radius": 0
+  "style/border_height": -2
+  "style/border_width": -2
+  "style/line_spacing": 5
+  "style/spacing": 8
+  "style/shadow_size": 0
 
-  # format using %@ and %c is deprecated since 1.0, Squirrel 1.0
-  # %@ is automatically expanded to "[candidate] [comment]"
-  # and %c is replaced by "[label]"
-  candidate_format: '[label]. [candidate] [comment]'  # 候选项格式化
+  "style/candidate_format": "[label]. [candidate] [comment]"
+  "style/font_face": Avenir
+  "style/font_point": 16
 
-  # adjust the base line of text
-  #base_offset: 0
-  font_face: 'Avenir'
-  font_point: 16
-  #label_font_face: 'Avenir'
-  #label_font_point: 12
-  #comment_font_face: 'Avenir'
-  #comment_font_point: 16
-
-
-# 皮肤列表
-preset_color_schemes:
-  # -------------------------------------------------------------
+  # ---------------------------------------------------------------
+  # 皮肤列表：只新增这两套，其它内置配色保持不变
+  # ---------------------------------------------------------------
   # macOS Native Light / 原生质感·日间
-  # 特点：通透白底、系统蓝高亮、极致圆角
-  # -------------------------------------------------------------
-  macos_native_light:
+  "preset_color_schemes/macos_native_light":
     name: "原生日间 / macOS Native Light"
     author: Gemini / Custom
-    # 字体设置
-    font_face: ""                   # 留空以使用系统回退机制，完美支持 🈶🈚️ Emoji 彩色
-    font_point: 16                  # 原生字号稍大，清晰度更高
-    label_font_face: ".AppleSystemUIFont" # 使用系统 UI 字体显示序号
+    font_face: ""                       # 留空使用系统回退，完美支持彩色 Emoji
+    font_point: 16
+    label_font_face: ".AppleSystemUIFont"
     label_font_point: 14
     comment_font_face: ".AppleSystemUIFont"
     comment_font_point: 16
-    
-    # 布局与外观
-    inline_preedit: true            # 拼音直接显示在输入行
-    inline_candidate: false         # 候选项单独列表
-    translucency: true              # 【关键】开启磨砂半透明效果
-    mutual_exclusive: false
-    border_height: 0                # 增加上下边距，更有呼吸感
-    border_width: 0                 # 增加左右边距
-    corner_radius: 5                # 窗口圆角
-    hilited_corner_radius: 5        # 选中项圆角 (略小于外框，视觉协调）
-    shadow_size: 10                 # 柔和的阴影，增加层次感
-    line_spacing: 6                 # 行间距
-    base_offset: 0
-    alpha: 0.95                     # 整体透明度，配合 translucency 实现毛玻璃
-    spacing: 10
-    color_space: display_p3         # 广色域
 
-    # --- 色彩定义 (格式: 0xBBGGRR) ---
-    # 背景与边框
-    back_color: 0xFFFFFF            # 纯白背景 (配合磨砂变灰白)
-    border_color: 0xFFFFFF          # 边框同色，隐藏边框线条
-    
-    # 选中项 (高亮) -> macOS 系统蓝 (RGB: 0,122,255 -> BGR: FF7A00)
-    hilited_candidate_back_color: 0xFF7A00 
-    
-    # 序号 (1, 2, 3...)
-    label_color: 0x999999           # 浅灰序号，不抢眼
-    hilited_candidate_label_color: 0xFFFFFF # 选中后序号变白
-    
-    # 候选文字
-    candidate_text_color: 0x222222  # 近似纯黑
-    hilited_candidate_text_color: 0xFFFFFF  # 选中后文字变白
-    
-    # 注解 (拼音/编码)
-    comment_text_color: 0x999999    # 浅灰注解
-    hilited_comment_text_color: 0xDDDDDD # 选中后注解变亮灰
-    
-    # 输入码 (inline_preedit: false 时生效，通常不显示)
+    inline_preedit: true
+    inline_candidate: false
+    translucency: true                  # 磨砂半透明
+    mutual_exclusive: false
+    border_height: 0
+    border_width: 0
+    corner_radius: 5
+    hilited_corner_radius: 5
+    shadow_size: 10
+    line_spacing: 6
+    base_offset: 0
+    alpha: 0.95
+    spacing: 10
+    color_space: display_p3
+
+    # --- 色彩定义 (0xBBGGRR) ---
+    back_color: 0xFFFFFF                # 纯白背景（配合磨砂呈灰白）
+    border_color: 0xFFFFFF              # 边框同色，隐藏线条
+
+    hilited_candidate_back_color: 0xFF7A00   # macOS 系统蓝 RGB(0,122,255)
+
+    label_color: 0x999999
+    hilited_candidate_label_color: 0xFFFFFF
+
+    candidate_text_color: 0x222222
+    hilited_candidate_text_color: 0xFFFFFF
+
+    comment_text_color: 0x999999
+    hilited_comment_text_color: 0xDDDDDD
+
     text_color: 0x424242
     hilited_text_color: 0x000000
 
-  # -------------------------------------------------------------
   # macOS Native Dark / 原生质感·夜间
-  # 特点：深空灰底、系统蓝高亮、沉浸式体验
-  # -------------------------------------------------------------
-  macos_native_dark:
+  "preset_color_schemes/macos_native_dark":
     name: "原生夜间 / macOS Native Dark"
     author: Gemini / Custom
-    # 字体与布局 (与日间保持一致)
     font_face: ""
     font_point: 16
     label_font_face: ".AppleSystemUIFont"
     label_font_point: 14
     comment_font_face: ".AppleSystemUIFont"
     comment_font_point: 16
-    
+
     inline_preedit: true
     inline_candidate: false
-    translucency: true              # 开启磨砂
+    translucency: true
     border_height: 0
     border_width: 0
     corner_radius: 5
     hilited_corner_radius: 5
-    shadow_size: 10                 # 夜间阴影稍重，区分背景
+    shadow_size: 10
     line_spacing: 6
-    alpha: 0.90                     # 夜间透明度稍低，防止背景太乱
+    alpha: 0.90
     spacing: 10
     color_space: display_p3
-    
-    # --- 色彩定义 (格式: 0xBBGGRR) ---
-    # 背景
-    back_color: 0x262626            # 深空灰背景 (RGB #262626)
-    border_color: 0x000000          # 极细黑边或透明
-    
-    # 选中项 (高亮) -> 依然使用系统蓝，或者选深灰色 0x505050
-    hilited_candidate_back_color: 0xFF7A00 
-    
-    # 序号
-    label_color: 0x888888           # 深灰底上的灰序号
+
+    # --- 色彩定义 (0xBBGGRR) ---
+    back_color: 0x262626                # 深空灰
+    border_color: 0x000000
+
+    hilited_candidate_back_color: 0xFF7A00
+
+    label_color: 0x888888
     hilited_candidate_label_color: 0xFFFFFF
-    
-    # 候选文字
-    candidate_text_color: 0xEEEEEE  # 柔和白
-    hilited_candidate_text_color: 0xFFFFFF # 纯白
-    
-    # 注解
-    comment_text_color: 0x808080    
+
+    candidate_text_color: 0xEEEEEE
+    hilited_candidate_text_color: 0xFFFFFF
+
+    comment_text_color: 0x808080
     hilited_comment_text_color: 0xDDDDDD
-    
+
     text_color: 0x808080
     hilited_text_color: 0xEEEEEE

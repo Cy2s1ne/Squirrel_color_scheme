@@ -12,22 +12,22 @@ A lightweight macOS-style skin (Light / Dark) with frosted translucency, soft co
 - Squirrel / Rime on macOS (or compatible skins).
 
 **30-second setup**
-1. Copy `squirrel.custom.yaml` to your config directory:
+1. Copy `squirrel.custom.yaml` to your config directory (Squirrel only reads `~/Library/Rime/`):
 
 ```bash
 cp squirrel.custom.yaml ~/Library/Rime/
-# or
-cp squirrel.custom.yaml ~/Library/Preferences/Squirrel/
 ```
 
-2. Reload / restart your input method.
+2. Menu bar "Squirrel" → "Deploy" (or restart the input method).
 
-Tip: if you already have custom configs, merge only `style` and `preset_color_schemes`.
+> ⚠️ `*.custom.yaml` is a patch file: it **must start with `patch:`**. Without it Rime silently ignores the whole file — the patch deploys but nothing changes. Verify after deploying with `grep macos_native ~/Library/Rime/build/squirrel.yaml`.
+
+Tip: if you already have custom configs, merge only the `style/...` and `preset_color_schemes/...` entries under `patch:`.
 
 **Enable / switch themes**
-Set in `style`:
-- `color_scheme: macos_native_light`
-- `color_scheme_dark: macos_native_dark`
+Under `patch:`, set:
+- `"style/color_scheme": macos_native_light`
+- `"style/color_scheme_dark": macos_native_dark`
 
 **Color format**
 - Colors use hex `0xBBGGRR` (BGR order, not `0xRRGGBB`).

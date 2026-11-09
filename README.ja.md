@@ -12,22 +12,22 @@
 - macOS の Squirrel / Rime（外観設定互換の入力メソッド）。
 
 **30秒セットアップ**
-1. `squirrel.custom.yaml` を設定ディレクトリにコピー：
+1. `squirrel.custom.yaml` を設定ディレクトリにコピー（Squirrel は `~/Library/Rime/` のみ読み込みます）：
 
 ```bash
 cp squirrel.custom.yaml ~/Library/Rime/
-# または
-cp squirrel.custom.yaml ~/Library/Preferences/Squirrel/
 ```
 
-2. 再読み込み / 再起動。
+2. メニューバーの「鼠鬚管」→「再デプロイ」（または入力メソッドを再起動）。
 
-ヒント: 既にカスタム設定がある場合は `style` と `preset_color_schemes` だけをマージ。
+> ⚠️ `*.custom.yaml` はパッチファイルで、**先頭に `patch:` が必要**です。無いと Rime はファイル全体を黙って無視し、「デプロイしたのに変わらない」状態になります。デプロイ後に `grep macos_native ~/Library/Rime/build/squirrel.yaml` で確認できます。
+
+ヒント: 既にカスタム設定がある場合は `patch:` 以下の `style/...` と `preset_color_schemes/...` だけをマージ。
 
 **有効化 / 切替**
-`style` に設定：
-- `color_scheme: macos_native_light`
-- `color_scheme_dark: macos_native_dark`
+`patch:` 以下に設定：
+- `"style/color_scheme": macos_native_light`
+- `"style/color_scheme_dark": macos_native_dark`
 
 **色の形式**
 - 色は `0xBBGGRR`（BGR 順、`0xRRGGBB` ではありません）。
